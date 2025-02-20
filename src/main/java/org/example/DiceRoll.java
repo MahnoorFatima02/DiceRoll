@@ -10,6 +10,7 @@ public class DiceRoll {
         int numberOfDice = scanner.nextInt();
         int sum = rollDice(numberOfDice);
         System.out.println("The total sum of the dice rolls is: " + sum);
+        System.out.println("The average of the dice rolls is: " + (double) sum / numberOfDice);
         scanner.close();
     }
 
