@@ -1,27 +1,39 @@
 package org.example;
 
 import java.util.Random;
-import java.util.Scanner;
 
 public class DiceRoll {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("How many dice would you like to roll? ");
-        int numberOfDice = scanner.nextInt();
-        int sum = rollDice(numberOfDice);
-        System.out.println("The total sum of the dice rolls is: " + sum);
-        System.out.println("The average of the dice rolls is: " + (double) sum / numberOfDice);
-        scanner.close();
+    Random random = new Random();
+    int rollCount = 0;
+
+    public int[] rollDice() {
+        int die1 = random.nextInt(6) + 1;
+        int die2 = random.nextInt(6) + 1;
+        rollCount++;
+        return new int[]{die1, die2};
     }
 
-    public static int rollDice(int numberOfDice) {
-        Random random = new Random();
-        int sum = 0;
-        for (int i = 1; i <= numberOfDice; i++) {
-            int roll = random.nextInt(6) + 1;
-            sum += roll;
-        }
-        return sum;
+    public boolean isDouble(int die1, int die2) {
+        System.out.println("Rolled: " + die1 + " and " + die2);
+
+        return die1 == die2;
     }
-}
+
+    public int rollUntilDouble(){
+        rollCount = 0;
+        int[] dice;
+        do {
+            dice = rollDice();
+        } while (!isDouble(dice[0], dice[1]));
+        return rollCount;
+    }
+
+
+        public static void main(String[] args) {
+            DiceRoll roller = new DiceRoll();
+            int attempts = roller.rollUntilDouble();
+            System.out.println("It took " + attempts + " rolls to get a double.");
+        }
+    }
+
 
